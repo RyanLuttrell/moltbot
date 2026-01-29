@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/dashboard", label: "Overview", exact: true },
+  { href: "/dashboard", label: "Chat", exact: true },
   { href: "/dashboard/channels", label: "Channels" },
   { href: "/dashboard/billing", label: "Billing" },
   { href: "/dashboard/settings", label: "Settings" },
@@ -21,10 +21,12 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="bg-surface-secondary border-border flex w-60 shrink-0 flex-col border-r">
-        <div className="border-border flex items-center gap-2 border-b px-5 py-4">
-          <span className="text-lg font-bold tracking-tight">Moltbot</span>
-          <span className="bg-brand/15 text-brand rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase">
+      <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-surface-secondary">
+        <div className="flex items-center gap-2 border-b border-border px-5 py-4">
+          <span className="font-display text-xl font-bold tracking-tight">
+            Moltbot<span className="text-brand">.</span>
+          </span>
+          <span className="rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold uppercase text-brand">
             SaaS
           </span>
         </div>
@@ -38,10 +40,10 @@ export default function DashboardLayout({
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`block rounded-md px-3 py-2 text-sm transition-colors ${
+                    className={`block rounded-full px-3 py-2 text-sm transition-colors ${
                       isActive
-                        ? "bg-surface-tertiary text-text-primary font-medium"
-                        : "text-text-secondary hover:bg-surface-tertiary hover:text-text-primary"
+                        ? "bg-brand-light font-medium text-brand"
+                        : "text-text-secondary hover:bg-brand-light/50 hover:text-text-primary"
                     }`}
                   >
                     {item.label}
@@ -51,7 +53,7 @@ export default function DashboardLayout({
             })}
           </ul>
         </nav>
-        <div className="border-border border-t px-5 py-4">
+        <div className="border-t border-border px-5 py-4">
           <UserButton
             afterSignOutUrl="/"
             appearance={{

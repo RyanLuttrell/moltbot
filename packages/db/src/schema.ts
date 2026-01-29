@@ -178,6 +178,30 @@ export const apiKeys = pgTable(
 );
 
 // ---------------------------------------------------------------------------
+// Dashboard chat messages (browser-based agent conversations)
+// ---------------------------------------------------------------------------
+
+export const dashboardMessages = pgTable(
+  "dashboard_messages",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    role: text("role").notNull(), // "user" | "assistant"
+    content: text("content").notNull(),
+    model: text("model"), // only for assistant messages
+    inputTokens: integer("input_tokens"),
+    outputTokens: integer("output_tokens"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("dashboard_messages_tenant_id_idx").on(t.tenantId),
+    index("dashboard_messages_tenant_created_idx").on(t.tenantId, t.createdAt),
+  ],
+);
+
+// ---------------------------------------------------------------------------
 // Audit log
 // ---------------------------------------------------------------------------
 

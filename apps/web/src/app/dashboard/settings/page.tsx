@@ -8,13 +8,13 @@ export default function SettingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">Settings</h1>
-        <p className="text-text-secondary mt-1">Manage your account</p>
+        <h1 className="font-display text-2xl font-bold tracking-tight">Settings</h1>
+        <p className="mt-1 text-text-secondary">Manage your account</p>
       </div>
 
-      <div className="bg-surface-secondary border-border rounded-lg border p-6">
+      <div className="rounded-2xl border border-border bg-surface-secondary p-6 shadow-sm">
         <h2 className="font-medium">Account</h2>
-        <dl className="text-text-secondary mt-4 space-y-3 text-sm">
+        <dl className="mt-4 space-y-3 text-sm text-text-secondary">
           <div className="flex justify-between">
             <dt className="text-text-muted">Email</dt>
             <dd>{tenant?.email ?? "—"}</dd>
@@ -34,9 +34,9 @@ export default function SettingsPage() {
         </dl>
       </div>
 
-      <div className="bg-surface-secondary border-border rounded-lg border p-6">
+      <div className="rounded-2xl border border-border bg-surface-secondary p-6 shadow-sm">
         <h2 className="font-medium">API Keys</h2>
-        <p className="text-text-secondary mt-2 text-sm">
+        <p className="mt-2 text-sm text-text-secondary">
           API key management coming soon. You will be able to create keys for
           programmatic access to your Moltbot tenant.
         </p>

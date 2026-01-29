@@ -4,6 +4,7 @@ import { connectionRouter } from "./routers/connection";
 import { agentRouter } from "./routers/agent";
 import { usageRouter } from "./routers/usage";
 import { billingRouter } from "./routers/billing";
+import { chatRouter } from "./routers/chat";
 
 export const appRouter = router({
   tenant: tenantRouter,
@@ -11,6 +12,7 @@ export const appRouter = router({
   agent: agentRouter,
   usage: usageRouter,
   billing: billingRouter,
+  chat: chatRouter,
 });
 
 export type AppRouter = typeof appRouter;

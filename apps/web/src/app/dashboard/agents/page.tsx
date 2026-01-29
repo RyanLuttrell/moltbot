@@ -23,14 +23,14 @@ export default function AgentsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Agents</h1>
-          <p className="text-text-secondary mt-1">
+          <h1 className="font-display text-2xl font-bold tracking-tight">Agents</h1>
+          <p className="mt-1 text-text-secondary">
             Configure your AI assistants
           </p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="bg-brand hover:bg-brand-dark rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
+          className="rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
         >
           New agent
         </button>
@@ -42,10 +42,10 @@ export default function AgentsPage() {
             e.preventDefault();
             if (newSlug) createAgent.mutate({ slug: newSlug });
           }}
-          className="bg-surface-secondary border-border flex items-end gap-3 rounded-lg border p-4"
+          className="flex items-end gap-3 rounded-2xl border border-border bg-surface-secondary p-4 shadow-sm"
         >
           <div className="flex-1">
-            <label className="text-text-secondary mb-1 block text-sm">
+            <label className="mb-1 block text-sm text-text-secondary">
               Agent slug
             </label>
             <input
@@ -54,20 +54,20 @@ export default function AgentsPage() {
               onChange={(e) => setNewSlug(e.target.value)}
               placeholder="my-assistant"
               pattern="^[a-z0-9-]+$"
-              className="bg-surface border-border w-full rounded-md border px-3 py-2 text-sm focus:border-brand focus:outline-none"
+              className="w-full rounded-full border border-border bg-surface px-4 py-2 text-sm transition-colors focus:border-brand focus:outline-none"
             />
           </div>
           <button
             type="submit"
             disabled={!newSlug || createAgent.isPending}
-            className="bg-brand hover:bg-brand-dark rounded-md px-4 py-2 text-sm font-medium text-white transition-colors disabled:opacity-50"
+            className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-dark disabled:opacity-50"
           >
             Create
           </button>
           <button
             type="button"
             onClick={() => setShowCreate(false)}
-            className="text-text-muted hover:text-text-primary text-sm"
+            className="text-sm text-text-muted hover:text-text-primary"
           >
             Cancel
           </button>
@@ -79,24 +79,24 @@ export default function AgentsPage() {
           {agentsList.map((agent) => (
             <div
               key={agent.id}
-              className="bg-surface-secondary border-border flex items-center justify-between rounded-lg border p-4"
+              className="flex items-center justify-between rounded-2xl border border-border bg-surface-secondary p-4 shadow-sm"
             >
               <div>
                 <span className="font-medium">{agent.slug}</span>
                 {agent.name && (
-                  <span className="text-text-muted ml-2">{agent.name}</span>
+                  <span className="ml-2 text-text-muted">{agent.name}</span>
                 )}
-                <div className="text-text-muted mt-1 text-xs">
+                <div className="mt-1 text-xs text-text-muted">
                   {agent.model} via {agent.modelProvider}
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <button className="text-text-secondary hover:text-text-primary text-sm transition-colors">
+                <button className="text-sm text-text-secondary transition-colors hover:text-text-primary">
                   Configure
                 </button>
                 <button
                   onClick={() => deleteAgent.mutate({ slug: agent.slug })}
-                  className="text-text-muted hover:text-red-400 text-sm transition-colors"
+                  className="text-sm text-text-muted transition-colors hover:text-red-600"
                 >
                   Delete
                 </button>
@@ -105,7 +105,7 @@ export default function AgentsPage() {
           ))}
         </div>
       ) : (
-        <div className="text-text-muted py-12 text-center">
+        <div className="py-12 text-center text-text-muted">
           No agents yet. Create one to get started.
         </div>
       )}

@@ -12,21 +12,23 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Moltbot</h1>
-        <p className="text-text-secondary mt-3 text-lg">
+        <h1 className="font-display text-4xl font-bold tracking-tight">
+          Moltbot<span className="text-brand">.</span>
+        </h1>
+        <p className="mt-3 text-lg text-text-secondary">
           Multi-channel AI assistant — managed for you
         </p>
       </div>
       <div className="flex gap-4">
         <Link
           href="/sign-up"
-          className="bg-brand hover:bg-brand-dark rounded-lg px-6 py-3 font-medium text-white transition-colors"
+          className="rounded-full bg-brand px-6 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
         >
           Get started
         </Link>
         <Link
           href="/sign-in"
-          className="bg-surface-tertiary hover:bg-border rounded-lg px-6 py-3 font-medium transition-colors"
+          className="rounded-full border border-border px-6 py-3 font-medium transition-colors hover:border-brand hover:text-brand"
         >
           Sign in
         </Link>
