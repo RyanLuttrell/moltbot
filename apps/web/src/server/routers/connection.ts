@@ -1,7 +1,8 @@
 import { z } from "zod";
-import { router, tenantProcedure } from "../trpc.js";
+import { router, tenantProcedure } from "../trpc";
 import { connections } from "@moltbot/db/schema";
 import { eq, and } from "drizzle-orm";
+import { encryptJson } from "@/lib/crypto";
 
 export const connectionRouter = router({
   // List all connections for the current tenant
@@ -21,23 +22,53 @@ export const connectionRouter = router({
       .orderBy(connections.createdAt);
   }),
 
-  // Add a new channel connection
-  create: tenantProcedure
+  // Connect a channel using a token/credential (Discord, Telegram, etc.)
+  connectWithToken: tenantProcedure
     .input(
       z.object({
         channelId: z.string().min(1),
         label: z.string().optional(),
-        metadata: z.record(z.unknown()).optional(),
+        token: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const credentialsEnc = encryptJson({ token: input.token });
+
+      // Upsert: replace existing connection for this channel
+      const [existing] = await ctx.db
+        .select()
+        .from(connections)
+        .where(
+          and(
+            eq(connections.tenantId, ctx.tenant.id),
+            eq(connections.channelId, input.channelId),
+          ),
+        )
+        .limit(1);
+
+      if (existing) {
+        const [updated] = await ctx.db
+          .update(connections)
+          .set({
+            credentialsEnc,
+            label: input.label ?? existing.label,
+            status: "active",
+            errorMessage: null,
+            updatedAt: new Date(),
+          })
+          .where(eq(connections.id, existing.id))
+          .returning();
+        return updated;
+      }
+
       const [connection] = await ctx.db
         .insert(connections)
         .values({
           tenantId: ctx.tenant.id,
           channelId: input.channelId,
           label: input.label,
-          metadata: input.metadata ?? {},
+          credentialsEnc,
+          status: "active",
         })
         .returning();
       return connection;

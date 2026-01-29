@@ -29,6 +29,9 @@ apps/web/package.json.lock.lock.lock.lock.lock
 apps/web/package.json.lock.lock.lock.lock.lock.lock
 apps/web/package.json.lock.lock.lock.lock.lock.lock.lock
 apps/web/package.json.lock.lock.lock.lock.lock.lock.lock.lock
+apps/web/.next/
+apps/web/certificates
+
 # Bun build artifacts
 *.bun-build
 apps/macos/.build/

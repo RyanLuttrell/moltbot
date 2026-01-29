@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { router, tenantProcedure, protectedProcedure } from "../trpc.js";
+import { router, tenantProcedure, protectedProcedure } from "../trpc";
 import { tenants, tenantConfigs } from "@moltbot/db/schema";
 import { eq } from "drizzle-orm";
 

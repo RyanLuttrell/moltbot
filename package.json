@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
+    "./agent-runtime": "./dist/agents/pi-embedded.js",
     "./plugin-sdk": "./dist/plugin-sdk/index.js",
     "./plugin-sdk/*": "./dist/plugin-sdk/*",
     "./cli-entry": "./moltbot.mjs"
