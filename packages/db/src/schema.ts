@@ -78,6 +78,34 @@ export const connections = pgTable(
 );
 
 // ---------------------------------------------------------------------------
+// Tool integrations (Google, GitHub, Notion, etc.)
+// ---------------------------------------------------------------------------
+
+export const integrations = pgTable(
+  "integrations",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    provider: text("provider").notNull(), // "google", "github", "notion"
+    label: text("label"), // "Google — ryan@example.com"
+    status: text("status").notNull().default("pending"),
+    credentialsEnc: text("credentials_enc"), // AES-256-GCM encrypted JSON
+    metadata: jsonb("metadata").default({}), // provider-specific (email, picture, etc.)
+    scopes: jsonb("scopes").default([]), // granted OAuth scopes as string[]
+    errorMessage: text("error_message"),
+    tokenExpiresAt: timestamp("token_expires_at"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("integrations_tenant_id_idx").on(t.tenantId),
+    index("integrations_provider_idx").on(t.provider),
+  ],
+);
+
+// ---------------------------------------------------------------------------
 // Agents per tenant
 // ---------------------------------------------------------------------------
 
