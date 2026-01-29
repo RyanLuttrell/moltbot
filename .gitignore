@@ -16,6 +16,19 @@ ui/src/ui/__screenshots__/
 ui/playwright-report/
 ui/test-results/
 
+# Web
+apps/web/.env.local
+apps/web/node_modules
+apps/web/package-lock.json
+apps/web/package.json
+apps/web/package.json.lock
+apps/web/package.json.lock.lock
+apps/web/package.json.lock.lock.lock
+apps/web/package.json.lock.lock.lock.lock
+apps/web/package.json.lock.lock.lock.lock.lock
+apps/web/package.json.lock.lock.lock.lock.lock.lock
+apps/web/package.json.lock.lock.lock.lock.lock.lock.lock
+apps/web/package.json.lock.lock.lock.lock.lock.lock.lock.lock
 # Bun build artifacts
 *.bun-build
 apps/macos/.build/
